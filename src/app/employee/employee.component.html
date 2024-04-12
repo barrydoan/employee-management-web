@@ -11,11 +11,21 @@
             <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody>
-          <ng-container *ngFor="let employee of employees">
-            <app-employee-line-item [employee]="employee"></app-employee-line-item>
-          </ng-container>
-          
+        <tbody  *ngFor="let employee of employees">
+          <tr>
+            <th scope="row">{{employee.id}}</th>
+            <td>{{employee.firstName}}</td>
+            <td>{{employee.lastName}}</td>
+            <td>{{employee.department.name}}</td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.email}}</td>
+            <td>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" (click)="onDetail(employee)" class="btn btn-secondary">Detail</button>
+                <button type="button" (click)="onDelete(employee)" class="btn btn-danger">Delete</button>
+              </div>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

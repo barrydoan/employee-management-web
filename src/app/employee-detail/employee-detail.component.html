@@ -1,0 +1,16 @@
+<div class="container">
+    
+    
+    <ng-container *ngIf="!isEdit">
+        <app-employee-view [employee]="employee"></app-employee-view>
+    </ng-container>
+    <ng-container *ngIf="isEdit">
+        <app-employee-edit (cancel)="onCancel()" ></app-employee-edit>
+    </ng-container>
+    <div class="d-flex flex-row mb-3 justify-content-end">
+        <ng-container *ngIf="!isEdit">
+            <button class="btn btn-secondary ms-3" (click)="onBack()" type="button">Back</button>
+            <button class="btn btn-primary ms-3" (click)="onEdit()" type="button">Edit</button>
+        </ng-container>
+    </div>
+</div>
