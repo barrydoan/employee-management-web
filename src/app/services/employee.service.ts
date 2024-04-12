@@ -8,11 +8,13 @@ import { HttpClient} from '@angular/common/http';
 })
 export class EmployeeService {
 
+  HOST:string = 'http://localhost:8080';
+
   constructor(
     private http:HttpClient
   ) { }
 
   getEmplyees(): Observable<IEmployee[]> {
-    return this.http.get<IEmployee[]>('http://localhost:8080/employeemanagement/employees')
+    return this.http.get<IEmployee[]>(`${this.HOST}/employeemanagement/employees`)
   }
 }
