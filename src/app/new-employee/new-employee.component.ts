@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { EmployeeEditComponent } from '../employee-edit/employee-edit.component';
+import { Router } from '@angular/router';
+import { IEmployee } from '../services/employee.model';
 
 @Component({
   selector: 'app-new-employee',
@@ -9,12 +11,19 @@ import { EmployeeEditComponent } from '../employee-edit/employee-edit.component'
   styleUrl: './new-employee.component.css'
 })
 export class NewEmployeeComponent {
-  onCancel(): void {
 
+  constructor(
+    private router: Router,
+  )
+  {}
+
+
+  onCancel(): void {
+    this.router.navigate(['/employee'])
   }
 
-  onUpdate(): void {
-
+  onUpdate(employee:IEmployee): void {
+    this.router.navigate([`/employee/${employee.id}`])
   }
 
 }

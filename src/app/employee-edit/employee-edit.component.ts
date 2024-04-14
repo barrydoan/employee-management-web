@@ -30,7 +30,7 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   @Output() cancel = new EventEmitter()
-  @Output() update = new EventEmitter()
+  @Output() update = new EventEmitter<IEmployee>()
 
   constructor(
     private route: ActivatedRoute,
@@ -60,7 +60,7 @@ export class EmployeeEditComponent implements OnInit {
     if (this.employee.id !== 0) {
       this.employeeService.updateEmployee(this.employee).subscribe({
         next: value => {
-          this.update.emit()
+          this.update.emit(this.employee)
           
         },
         error: err => console.log('error')
@@ -70,7 +70,7 @@ export class EmployeeEditComponent implements OnInit {
       this.employeeService.createEmployee(this.employee).subscribe({
         next: value => {
           console.log('created', value)
-          //this.update.emit()
+          this.update.emit(value)
         },
         error: error => console.log('error')
       })
