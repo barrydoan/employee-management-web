@@ -1,13 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IEmployee } from '../services/employee.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../services/employee.service';
 import { FormsModule } from '@angular/forms';
+import { error } from 'console';
+import { DepartmentSelectionComponent } from '../department-selection/department-selection.component';
+import { CommonModule } from '@angular/common';
+import { IDepartment } from '../services/department.model';
 
 @Component({
   selector: 'app-employee-edit',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, DepartmentSelectionComponent],
   templateUrl: './employee-edit.component.html',
   styleUrl: './employee-edit.component.css'
 })
@@ -53,13 +57,28 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   onSave():void {
-    this.employeeService.updateEmployee(this.employee).subscribe({
-      next: value => {
-        this.update.emit()
-        
-      },
-      error: err => console.log('error')
-    })
-    
+    if (this.employee.id !== 0) {
+      this.employeeService.updateEmployee(this.employee).subscribe({
+        next: value => {
+          this.update.emit()
+          
+        },
+        error: err => console.log('error')
+      })
+    }
+    else {
+      this.employeeService.createEmployee(this.employee).subscribe({
+        next: value => {
+          console.log('created', value)
+          //this.update.emit()
+        },
+        error: error => console.log('error')
+      })
+    }
+  }
+
+  onDepartmentChanged(department:IDepartment): void {
+    console.log('onDepartmentChange', department)
+    this.employee.department = department
   }
 }

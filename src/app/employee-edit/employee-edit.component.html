@@ -9,12 +9,7 @@
     </div>
     <div class="mb-3">
         <label for="department" class="form-label">Department</label>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
+        <app-department-selection (departmentChanged)="onDepartmentChanged($event)" [selectedDepartment]="employee.department"></app-department-selection>
     </div>
     <div class="mb-3">
         <label for="email" class="form-label">Emmail</label>

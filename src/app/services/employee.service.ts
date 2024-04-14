@@ -24,4 +24,9 @@ export class EmployeeService {
   updateEmployee(employee: IEmployee): Observable<IEmployee> {
     return this.http.put<IEmployee>(`/employeemanagement/employees/${employee.id}`, employee)
   }
+
+  createEmployee(employee: IEmployee): Observable<IEmployee> {
+    console.log('createEmployee', employee)
+    return this.http.post<IEmployee>(`/employeemanagement/employees`, employee)
+  }
 }

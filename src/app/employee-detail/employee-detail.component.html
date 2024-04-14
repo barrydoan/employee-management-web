@@ -7,7 +7,7 @@
     <ng-container *ngIf="isEdit">
         <app-employee-edit (cancel)="onCancel()" (update)="onUpdate()" ></app-employee-edit>
     </ng-container>
-    <div class="d-flex flex-row mb-3 justify-content-end">
+    <div class="d-flex flex-row mt-3 justify-content-end">
         <ng-container *ngIf="!isEdit">
             <button class="btn btn-secondary ms-3" (click)="onBack()" type="button">Back</button>
             <button class="btn btn-primary ms-3" (click)="onEdit()" type="button">Edit</button>

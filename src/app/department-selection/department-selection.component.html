@@ -1,0 +1,5 @@
+<select class="form-select" (change)="onSelectionChange($event)">
+    <option value="0">Select department</option>
+    <option *ngFor="let department of departments" [selected]="department.isSelected == true" [value]="department.id">{{department.name}}</option>
+    
+</select>

@@ -34,4 +34,8 @@ export class EmployeeComponent {
     console.log('onDelete')
   }
 
+  onNew() {
+    this.router.navigate(['/new-employee'])
+  }
+
 }
