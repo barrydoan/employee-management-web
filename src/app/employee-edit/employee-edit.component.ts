@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class EmployeeEditComponent implements OnInit {
 
-  @Input() employee: IEmployee = {
+  employee: IEmployee = {
     id: 0,
     firstName: "",
     lastName: "",
@@ -26,6 +26,7 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   @Output() cancel = new EventEmitter()
+  @Output() update = new EventEmitter()
 
   constructor(
     private route: ActivatedRoute,
@@ -52,6 +53,13 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   onSave():void {
-    console.log('save clicked')
+    this.employeeService.updateEmployee(this.employee).subscribe({
+      next: value => {
+        this.update.emit()
+        
+      },
+      error: err => console.log('error')
+    })
+    
   }
 }

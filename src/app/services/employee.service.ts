@@ -20,4 +20,8 @@ export class EmployeeService {
   getEmployeeById(id:number): Observable<IEmployee> {
     return this.http.get<IEmployee>(`/employeemanagement/employees/${id}`)
   }
+
+  updateEmployee(employee: IEmployee): Observable<IEmployee> {
+    return this.http.put<IEmployee>(`/employeemanagement/employees/${employee.id}`, employee)
+  }
 }

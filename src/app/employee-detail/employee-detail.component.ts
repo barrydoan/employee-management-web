@@ -28,10 +28,7 @@ export class EmployeeDetailComponent implements OnInit {
     this.route.paramMap.subscribe({
       next: (paramMap) => {
         this.id = Number(paramMap.get("id"))
-        this.employeeService.getEmployeeById(this.id).subscribe(e => {
-          this.employee = e;
-          console.log("employee", this.employee)
-        });
+        this.updateEmployee()
       }
     })
   }
@@ -46,6 +43,19 @@ export class EmployeeDetailComponent implements OnInit {
   
   onCancel():void {
     this.isEdit = false
+  }
+
+  async onUpdate():Promise<void> {
+    await this.updateEmployee()
+    this.isEdit = false
+    
+  }
+
+  private updateEmployee(): void {
+    this.employeeService.getEmployeeById(this.id).subscribe(e => {
+      this.employee = e;
+      console.log("employee", this.employee)
+    });
   }
 
 }

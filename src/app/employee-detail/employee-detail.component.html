@@ -5,7 +5,7 @@
         <app-employee-view [employee]="employee"></app-employee-view>
     </ng-container>
     <ng-container *ngIf="isEdit">
-        <app-employee-edit (cancel)="onCancel()" ></app-employee-edit>
+        <app-employee-edit (cancel)="onCancel()" (update)="onUpdate()" ></app-employee-edit>
     </ng-container>
     <div class="d-flex flex-row mb-3 justify-content-end">
         <ng-container *ngIf="!isEdit">
