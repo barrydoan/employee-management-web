@@ -29,4 +29,8 @@ export class EmployeeService {
     console.log('createEmployee', employee)
     return this.http.post<IEmployee>(`/employeemanagement/employees`, employee)
   }
+
+  deleteEmployee(id:number): Observable<Boolean> {
+    return this.http.delete<Boolean>(`/employeemanagement/employees/${id}`)
+  }
 }
