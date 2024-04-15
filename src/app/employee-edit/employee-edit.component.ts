@@ -7,11 +7,12 @@ import { error } from 'console';
 import { DepartmentSelectionComponent } from '../department-selection/department-selection.component';
 import { CommonModule } from '@angular/common';
 import { IDepartment } from '../services/department.model';
+import { flush } from '@angular/core/testing';
 
 @Component({
   selector: 'app-employee-edit',
   standalone: true,
-  imports: [FormsModule, DepartmentSelectionComponent],
+  imports: [FormsModule, DepartmentSelectionComponent, CommonModule],
   templateUrl: './employee-edit.component.html',
   styleUrl: './employee-edit.component.css'
 })
@@ -28,6 +29,8 @@ export class EmployeeEditComponent implements OnInit {
       name: ""
     }
   }
+
+  hasError:boolean = false;
 
   @Output() cancel = new EventEmitter()
   @Output() update = new EventEmitter<IEmployee>()
@@ -57,6 +60,12 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   onSave():void {
+    this.hasError = false;
+    if (!this.validateEmployee()) {
+      console.log('has error', this.employee)
+      this.hasError = true;
+      return;
+    }
     if (this.employee.id !== 0) {
       this.employeeService.updateEmployee(this.employee).subscribe({
         next: value => {
@@ -80,5 +89,17 @@ export class EmployeeEditComponent implements OnInit {
   onDepartmentChanged(department:IDepartment): void {
     console.log('onDepartmentChange', department)
     this.employee.department = department
+  }
+
+  private validateEmployee(): boolean {
+    if (
+      this.employee.firstName === '' ||
+      this.employee.lastName === '' ||
+      this.employee.email === '' ||
+      this.employee.phone === ''
+    ) {
+      return false;
+    }
+    return true;
   }
 }

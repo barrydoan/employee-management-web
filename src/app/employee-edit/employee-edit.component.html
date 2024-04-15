@@ -1,4 +1,7 @@
 <form class="form">
+    <div *ngIf="hasError" class="alert alert-danger" role="alert">
+        Data is invalid.
+    </div>
     <div class="mb-3">
         <label for="firstName" class="form-label">First Name</label>
         <input type="text" class="form-control" id="firstName" placeholder="" [(ngModel)]="employee.firstName" name="firstName"/>
