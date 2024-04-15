@@ -14,7 +14,7 @@
             <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody  *ngFor="let employee of employees">
+        <tbody  *ngFor="let employee of getFilteredEmployee()">
           <tr>
             <th scope="row">{{employee.id}}</th>
             <td>{{employee.firstName}}</td>

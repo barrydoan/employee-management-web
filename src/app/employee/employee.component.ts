@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { EmployeeService } from '../services/employee.service';
 import { IEmployee } from '../services/employee.model';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModelPopupComponent } from '../model-popup/model-popup.component';
 
 
@@ -17,14 +17,19 @@ export class EmployeeComponent {
   showDeletePopup:boolean = false
   message:string = ''
   employees:any;
+  filter: string = '';
 
   constructor(
     private employeeService:  EmployeeService,
     private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.updateEmployee()
+    this.route.queryParams.subscribe((params) => {
+      this.filter = params['filter'] ?? '';
+    })
   }
 
   onDetail(employee:IEmployee) {
@@ -58,6 +63,18 @@ export class EmployeeComponent {
     this.employeeService.getEmplyees().subscribe(employees => {
       this.employees = employees
     })
+  }
+
+  getFilteredEmployee() {
+    console.log(this.employees)
+    if (!this.employees) {
+      return;
+    }
+    return this.filter === ''
+      ? this.employees
+      : this.employees.filter(
+        (employee: any) => employee.department.id === Number(this.filter)
+      );
   }
 
 }
